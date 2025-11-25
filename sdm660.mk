@@ -382,12 +382,12 @@ PRODUCT_PACKAGES += \
     libavservices_minijail \
     libavservices_minijail.vendor \
     libc2dcolorconvert \
-    libhypv_intercept \
     libOmxCore \
     libOmxVdec \
     libOmxVenc \
     libstagefright_softomx_plugin.vendor \
     libstagefrighthw
+#   ^^libhypv_intercept \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
