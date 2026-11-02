@@ -44,6 +44,12 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.-->
         </carrier_config>-->
 
     <carrier_config>
+        <!-- Label LTE as "4G" in the status bar. LTE is the 4G radio
+             technology; AOSP defaults this to false. This block has no
+             filter attributes so it applies to every carrier, and sits
+             before the mcc/mnc-filtered blocks below so those can still
+             override it (e.g. 262/* keeps the "LTE" label). -->
+        <boolean name="show_4g_for_lte_data_icon_bool" value="true" />
         <boolean name="apn_expand_bool" value="true" />
         <boolean name="world_phone_bool" value="true" />
         <boolean name="allow_adding_apns_bool" value="true" />
