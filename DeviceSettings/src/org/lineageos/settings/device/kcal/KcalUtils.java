@@ -28,6 +28,12 @@ public final class KcalUtils {
     public static final String KCAL_SATURATION_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_sat";
     public static final String KCAL_CONTRAST_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_cont";
 
+    // Simple Phone: the lavender LCD is prone to image retention from the always-identical
+    // launcher. Capping every channel at ~90% keeps the liquid crystal away from full drive,
+    // which reduces it. Keep these in sync with the defaultValue attributes in kcal_settings.xml.
+    public static final boolean DEFAULT_KCAL_ENABLE = true;
+    public static final int DEFAULT_RGB = 230; // 90% of 256
+
     // Write the given value to the given position on the KCAL node
     // position 0 is the full node, so the function will write the value to the node without following a pattern
     // position 1 is RED
@@ -81,11 +87,11 @@ public final class KcalUtils {
 
     public static void writeCurrentSettings(SharedPreferences sharedPrefs) {
         FileUtils.writeLine(KcalUtils.KCAL_ENABLE_NODE,
-            sharedPrefs.getBoolean("kcal_enable", false) ? "1" : "0");
+            sharedPrefs.getBoolean("kcal_enable", DEFAULT_KCAL_ENABLE) ? "1" : "0");
 
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 1, sharedPrefs.getInt("red_slider", 256));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 2, sharedPrefs.getInt("green_slider", 256));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 3, sharedPrefs.getInt("blue_slider", 256));
+        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 1, sharedPrefs.getInt("red_slider", DEFAULT_RGB));
+        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 2, sharedPrefs.getInt("green_slider", DEFAULT_RGB));
+        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 3, sharedPrefs.getInt("blue_slider", DEFAULT_RGB));
         KcalUtils.writeConfigToNode(KcalUtils.KCAL_SATURATION_NODE, 0, sharedPrefs.getInt("saturation_slider", 255));
         KcalUtils.writeConfigToNode(KcalUtils.KCAL_CONTRAST_NODE, 0, sharedPrefs.getInt("contrast_slider", 255));
     }
